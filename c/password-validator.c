@@ -14,7 +14,7 @@ void initialize(struct PasswordValidator *validator, const char *password) {
     validator->strength = 0;
 }
 
-int validateLength(const struct PasswordValidator *validator) {
+int validateLength(struct PasswordValidator *validator) {
     int length = strlen(validator->password);
     if (length >= 5 && length <= 9) {
         return 1;
@@ -26,7 +26,7 @@ int validateLength(const struct PasswordValidator *validator) {
     }
 }
 
-int validateSpecialChars(const struct PasswordValidator *validator, const char *specialChars) {
+int validateSpecialChars(struct PasswordValidator *validator, const char *specialChars) {
     if (strpbrk(validator->password, specialChars) != NULL) {
         validator->strength += 1;
         return 1;
@@ -35,7 +35,7 @@ int validateSpecialChars(const struct PasswordValidator *validator, const char *
     }
 }
 
-int validateNumbers(const struct PasswordValidator *validator, const char *numbersChars) {
+int validateNumbers(struct PasswordValidator *validator, const char *numbersChars) {
     if (strpbrk(validator->password, numbersChars) != NULL) {
         validator->strength += 1;
         return 1;
@@ -44,7 +44,7 @@ int validateNumbers(const struct PasswordValidator *validator, const char *numbe
     }
 }
 
-int validateSpaces(const struct PasswordValidator *validator) {
+int validateSpaces(struct PasswordValidator *validator) {
     if (strchr(validator->password, ' ') == NULL) {
         return 1;
     } else {
@@ -56,7 +56,7 @@ void displayPassword(const struct PasswordValidator *validator) {
     printf("Your entered password: %s\n", validator->password);
 }
 
-void summary(const struct PasswordValidator *validator, const char *specialChars, const char *numbersChars) {
+void summary(struct PasswordValidator *validator, const char *specialChars, const char *numbersChars) {
     displayPassword(validator);
     if (!validateSpaces(validator)) {
         printf("YOUR PASSWORD IS INVALID [CONTAINS SPACES]\n");
